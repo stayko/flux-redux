@@ -3,6 +3,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { get } from './http';
 import {createLogger} from 'redux-logger';
 
+//action types
 export const ONLINE = `ONLINE`;
 export const AWAY = `AWAY`;
 export const BUSY = `BUSY`;
@@ -13,6 +14,8 @@ export const READY = `READY`;
 export const WAITING = `WAITING`;
 export const NEW_MESSAGE_SERVER_ACCEPTED = `NEW_MESSAGE_SERVER_ACCEPTED`;
 
+
+//action creators
 const statusUpdateAction = (value)=>{
     return {
         type: UPDATE_STATUS,
@@ -38,7 +41,7 @@ const newMessageAction = (content, postedBy)=>{
 }
 
 
-
+//default state
 const defaultState = {
     messages:[{
         date:new Date('2016-10-10 10:11:55'),
@@ -58,7 +61,7 @@ const defaultState = {
 }
 
 
-
+//reducers
 const userStatusReducer = (state = defaultState.userStatus, {type, value}) => {
     switch (type) {
         case UPDATE_STATUS:
@@ -108,6 +111,7 @@ const render = ()=>{
     document.forms.newMessage.fields.disabled = (userStatus === OFFLINE || apiCommunicationStatus === WAITING);
 }
 
+//event listeners
 document.forms.selectStatus.status.addEventListener("change",(e)=>{
     store.dispatch(statusUpdateAction(e.target.value));
 });
